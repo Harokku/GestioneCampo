@@ -34,7 +34,7 @@
             <h4 style="font-weight: bold" class="center-align">Uscita</h4>
           </div>
           <div class="card-action">
-            <a class="center-align" href="#modalBadgeLector">Leggi Badge</a>
+            <a class="center-align" href="#modalBadgeLector" (click)="onReadBadge()">Leggi Badge</a>
           </div>
         </div>
       </div>
@@ -46,7 +46,8 @@
 <div id="modalBadgeLector" class="modal" materialize="modal">
   <div class="modal-content">
     <h4>Passare il badge</h4>
-    <p>Codice letto:</p>
+    <p>Codice letto: {{ users }} </p>
+    <p *ngIf="selectedUser">Utente selezionato: {{ selectedUser }}</p>
   </div>
   <div class="modal-footer">
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>

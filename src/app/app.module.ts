@@ -8,6 +8,11 @@ import { DepotComponent } from './depot/depot.component';
 import {MaterializeModule} from "angular2-materialize";
 import { StampingsComponent } from './stampings/stampings.component';
 
+// Import for in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +23,8 @@ import { StampingsComponent } from './stampings/stampings.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterializeModule
+    MaterializeModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [],
   bootstrap: [AppComponent]
