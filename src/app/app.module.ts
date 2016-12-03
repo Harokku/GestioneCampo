@@ -5,16 +5,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { DepotComponent } from './depot/depot.component';
+import {MaterializeModule} from "angular2-materialize";
+import { StampingsComponent } from './stampings/stampings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DepotComponent
+    DepotComponent,
+    StampingsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MaterializeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
