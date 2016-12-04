@@ -2,6 +2,8 @@
   <div class="section">
     <h1>Gestione timbrature</h1>
     <blockquote>Selezionare l'azione desiderata e poi passare il badge</blockquote>
+    <!--TODO: Debug button for checking stamps on console-->
+    <a class="waves-effect waves-light btn" (click)="doShowStamps()"><i class="material-icons">print</i> Mostra timbrature</a>
   </div>
   <div class="divider"></div>
 
@@ -62,8 +64,8 @@
       <div class="card-stacked">
         <div class="card-content">
           <p>
-            <b>Nome:</b> {{ badgedUsers[0].surname }} {{ badgedUsers[0].name }} <br />
-            <b>Ruolo:</b> {{ badgedUsers[0].role }} - <b>Badge Numero:</b> {{badgedUsers[0].badge_number }}
+            <b>Nome:</b> {{ badgedUsers.surname }} {{ badgedUsers.name }} <br />
+            <b>Ruolo:</b> {{ badgedUsers.role }} - <b>Badge Numero:</b> {{badgedUsers.badge_number }}
           </p>
         </div>
       </div>

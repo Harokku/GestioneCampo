@@ -23,7 +23,7 @@ export class UserService {
     return this.http
       .get(`app/users/?badge_number=${term}`)
       .toPromise()
-      .then(response => response.json().data as User)
+      .then(response => response.json().data[0] as User)
       .catch(this.handleError);
   }
 
