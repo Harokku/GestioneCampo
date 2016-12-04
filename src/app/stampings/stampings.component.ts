@@ -3,7 +3,7 @@ import {Component, OnInit, EventEmitter} from '@angular/core';
 import {UserService} from "../user.service";
 import {User} from "../user";
 import {Observable, Subject} from "rxjs";
-import {MaterializeAction} from "angular2-materialize";
+import {MaterializeAction, } from "angular2-materialize";
 
 @Component({
   selector: 'app-stampings',
@@ -13,58 +13,41 @@ import {MaterializeAction} from "angular2-materialize";
 })
 
 export class StampingsComponent implements OnInit {
-  users: User[];
-  badgedUsers: Observable<User[]>;
-  private searchTerms = new Subject<string>();
-  selectedUser: User;
+  badgedUsers: User;
+  stampType: string;
   modalLectorAction = new EventEmitter<string|MaterializeAction>();
+  toastAction = new EventEmitter<string|MaterializeAction>();
 
   constructor(
     private userService: UserService
   ) { }
 
-  getUsers(): void {
-    this.userService.getUsers()
-      .then(users => this.users = users);
-  }
-
-  // Push search term into the observable stream.
+   // Push search term into the observable stream.
   search(term: string): void {
-    this.searchTerms.next(term);
-  }
-
-  onReadBadge(): void{
-    console.log(this.users);
-    console.log(this.selectedUser);
+    this.userService.getBadgeUser(term)
+      .then(user => this.badgedUsers = user);
+    console.log(JSON.stringify(this.badgedUsers))
   }
 
   // Function for modal opening and closing
-  openLector() {
+  openLector(stampType: string): void {
+    this.stampType = stampType;
     this.modalLectorAction.emit({action:"modal", params:['open']});
   }
-  closeLector(action: string){
-    if (action == action) {
+  closeLector(action: string): void{
+    if (action == 'Timbra') {
       this.modalLectorAction.emit({action: "modal", params: ['close']});
-      console.log("Ha timbrato:" + action)
-      console.log("Ha timbrato:" + this.badgedUsers.valueOf())
+      this.toastAction.emit({action: "toast", params: [this.badgedUsers[0].surname + " " + this.badgedUsers[0].name + " ha timbrato l'" + this.stampType, 5000, 'rounded']});
+      console.log("Ha timbrato l'" + this.stampType + ":" + JSON.stringify(this.badgedUsers[0]));
+      this.badgedUsers = null;
     } else {
       this.modalLectorAction.emit({action: "modal", params: ['close']});
+      this.badgedUsers = null;
     }
   }
 
   ngOnInit() {
-    this.getUsers();
-    this.badgedUsers = this.searchTerms
-      .debounceTime(500)
-      .distinctUntilChanged()
-      .switchMap(term => term
-        ? this.userService.getBadgeUser(term)
-        : Observable.of<User[]>([])
-      )
-      .catch(error => {
-        console.log(error);
-        return Observable.of<User[]>([]);
-      });
+
   }
 
 }

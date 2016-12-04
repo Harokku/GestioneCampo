@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col s12 m6">
       <!--Card Entrata definition-->
-      <div class="card horizontal hoverable modal-trigger" (click)="openLector()">
+      <div class="card horizontal hoverable modal-trigger" (click)="openLector('entrata')">
         <div class="card-image">
           <i class="large material-icons">work</i>
         </div>
@@ -25,7 +25,7 @@
 
     <div class="col s12 m6">
       <!--Card Uscita defnition-->
-      <div class="card horizontal hoverable">
+      <div class="card horizontal hoverable modal-trigger" (click)="openLector('uscita')">
         <div class="card-image">
           <i class="large material-icons">home</i>
         </div>
@@ -34,7 +34,7 @@
             <h4 style="font-weight: bold" class="center-align">Uscita</h4>
           </div>
           <div class="card-action">
-            <a class="center-align" href="#modalBadgeLector" (click)="onReadBadge()">Leggi Badge</a>
+            <a class="center-align" href="#modalBadgeLector">Leggi Badge</a>
           </div>
         </div>
       </div>
@@ -55,15 +55,15 @@
     </div>
 
     <div class="divider"></div>
-    <div class="card horizontal" *ngFor="let user of badgedUsers | async">
+    <div class="card horizontal" *ngIf="badgedUsers">
       <div class="card-image">
         <i class="material-icons large">perm_identity</i>
       </div>
       <div class="card-stacked">
         <div class="card-content">
           <p>
-            <b>Nome:</b> {{ user.surname }} {{ user.name }} <br />
-            <b>Ruolo:</b> {{ user.role }} - <b>Badge Numero:</b> {{user.badge_number }}
+            <b>Nome:</b> {{ badgedUsers[0].surname }} {{ badgedUsers[0].name }} <br />
+            <b>Ruolo:</b> {{ badgedUsers[0].role }} - <b>Badge Numero:</b> {{badgedUsers[0].badge_number }}
           </p>
         </div>
       </div>
@@ -71,7 +71,9 @@
   </div>
 
   <div class="modal-footer">
-    <a href="#" class="waves-effect waves-green btn-flat" (click)="closeLector('Timbra')">Timbra!</a>
-    <a href="#" class="waves-effect waves-green btn-flat" (click)="closeLector('Annulla')">Annulla!</a>
+    <a href="#" class="waves-effect waves-green btn-flat" materialize="toast" [materializeActions]="toastAction" (click)="closeLector('Timbra'); searchBox.value=null">Timbra!</a>
+    <a href="#" class="waves-effect waves-green btn-flat" (click)="closeLector('Annulla'); searchBox.value=null">Annulla!</a>
   </div>
 </div>
+
+<!--Toast definition-->
