@@ -28,7 +28,8 @@ export class UserService {
   }
 
   getBadgeUser(term: string): Observable<User[]> {
-    return this.http.get(this.usersUrl + '/?badge_number=${term}')
+    return this.http
+      .get(`app/users/?badge_number=${term}`)
       .map((r: Response) => r.json().data as User[]);
   }
 

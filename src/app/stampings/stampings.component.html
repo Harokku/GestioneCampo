@@ -46,9 +46,20 @@
 <div id="modalBadgeLector" class="modal" materialize="modal">
   <div class="modal-content">
     <h4>Passare il badge</h4>
-    <p>Codice letto: {{ users }} </p>
-    <p *ngIf="selectedUser">Utente selezionato: {{ selectedUser }}</p>
+    <p>Codice letto:
+      <input #searchBox (keyup)="search(searchBox.value)" />
+    </p>
+
+    <div class="card blue-grey">
+      <div class="card-content white-text">
+        <span class="card-title">Utente individuato</span>
+        <div *ngFor="let user of badgedUsers | async">
+          {{ user.surname }} , {{ user.name }} , {{ user.dob }} <br /> {{ user.badge_number }}
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="modal-footer">
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
   </div>
